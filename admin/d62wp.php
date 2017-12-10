@@ -1,4 +1,4 @@
-<?php // (C) Copyright Bobbing Wide 2013
+<?php // (C) Copyright Bobbing Wide 2013-2017
 
 function d62wp_lazy_admin_menu() {
   add_submenu_page( 'oik_menu', __( 'Drupal 6 to WordPress', 'd62wp') , __("Drupal 6 to WordPress", 'oik'), 'manage_options', 'd62wp', "d62wp_do_page" );
@@ -24,7 +24,7 @@ function d62wp_migrate_steps() {
   li( "Migrate post_types from node_type" );
   li( "Migrate taxonomies for post_types from vocabulary_node_types" );
   li( "Migrate Category and Tags terms from term_node, term_data and term_hierarchy" );
-  li( "Define fields for any post type $post_type from content_node_field" );
+  li( "Define fields for any post type \$post_type from content_node_field" );
   li( "Register fields for object type from content_node_field_instance" );
   li( "Migrate different bits of content in the correct order." );
   eol();
@@ -145,7 +145,7 @@ function d62wp_add_to_menu( $page_id, $title ) {
  * 
  */
 function d62wp_menu_selector() {
-  oik_require( "bw_metadata.inc" );
+  oik_require( "includes/bw_metadata.php" );
   $menus = wp_get_nav_menus( $args = array() );
   $terms = bw_term_array( $menus );
   $terms[0] = "none";
@@ -284,7 +284,7 @@ function d62wp_migrate_vocabularies() {
       $name = bw_plugin_namify( $result->name );
       if ( $result->hierarchy ) { 
         bw_register_custom_category( $name, $result->name );
-        p( "bw_register_custom_category( \"$name\", \"$result->name\" );" );
+        p( "bw_register_custom_category( \"$name\", null, \"$result->name\" );" );
       }  
       if ( $result->tags ) {
         bw_register_custom_tags( $result->name );
@@ -405,7 +405,7 @@ function d62wp_display_nodes() {
     th( "tnid - Import status" );
     etag( "tr" );
     foreach ( $results as $result ) {
-      $total += $count;
+      $total += 1; //$count;
       stag( "tr" );
       td( $result->type );
       td( $result->title );
