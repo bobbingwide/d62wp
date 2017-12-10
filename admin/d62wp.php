@@ -284,7 +284,7 @@ function d62wp_migrate_vocabularies() {
       $name = bw_plugin_namify( $result->name );
       if ( $result->hierarchy ) { 
         bw_register_custom_category( $name, $result->name );
-        p( "bw_register_custom_category( \"$name\", null, \"$result->name\" );" );
+        p( "bw_register_custom_category( \"$name\", \"$result->name\" );" );
       }  
       if ( $result->tags ) {
         bw_register_custom_tags( $result->name );
